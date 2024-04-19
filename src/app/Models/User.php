@@ -2,11 +2,12 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+
 
 class User extends Authenticatable
 {
@@ -44,4 +45,19 @@ class User extends Authenticatable
         'date_birthday' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function events(): BelongsToMany
+    {
+        return $this->belongsToMany(Event::class);
+    }
+
+    public function events_creator(): BelongsToMany
+    {
+        return $this->belongsToMany(Event::class)->wherePivot('role', 'creator');
+    }
+
+    public function events_participants(): BelongsToMany
+    {
+        return $this->belongsToMany(Event::class)->wherePivot('role', 'participant');
+    }
 }

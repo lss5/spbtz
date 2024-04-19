@@ -24,7 +24,7 @@
                         <h3 class="card-title">{{ $event->title }}</h3>
                         @can('update', $event)
                             <div class="card-tools">
-                                <a href="{{ route('admin.events.update', $event) }}" class="btn btn-sm btn-success">Изменить</a>
+                                <a href="{{ route('admin.events.edit', $event) }}" class="btn btn-sm btn-success">Изменить</a>
                             </div>
                         @endcan
                     </div>
