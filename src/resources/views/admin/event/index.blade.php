@@ -21,7 +21,9 @@
             @foreach ($events_participant as $event)
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">{{ $event->title }}</h3>
+                        <a href="{{ route('admin.events.show', $event) }}" class="text-decoration_none">
+                            <h3 class="card-title">{{ $event->title }}</h3>
+                        </a>
                         @can('update', $event)
                             <div class="card-tools">
                                 <a href="{{ route('admin.events.edit', $event) }}" class="btn btn-sm btn-success">Изменить</a>
@@ -33,12 +35,18 @@
                     </div>
                     <div class="card-footer">
                         <span class="badge badge-warning">Участники: {{ $event->participants()->count() }}</span>
-                        
                     </div>
                 </div>
             @endforeach
         @else
-            
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Вы пока не учавствуете в событиях</h3>
+                </div>
+                <div class="card-body">
+                    <a href="{{ route('admin.events.index') }}" class="btn btn-success">Посмотреть все события</a>
+                </div>
+            </div>
         @endif
         
     </section>

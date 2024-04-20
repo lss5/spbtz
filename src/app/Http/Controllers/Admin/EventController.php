@@ -49,10 +49,13 @@ class EventController extends Controller
 
     public function show(Event $event)
     {
+        $participant = Auth::user()->events_participants()->where('events.id', $event->id)->first();
+
         return view('admin.event.show', [
             'events_all' => Event::all(),
             'events_creator' => Auth::user()->events_creator()->get(),
             'event' => $event,
+            'participant' => $participant,
         ]);
     }
 
@@ -77,5 +80,27 @@ class EventController extends Controller
     public function destroy(Event $event)
     {
         //
+    }
+
+    /**
+     * Change status user to event
+     */
+    public function participant(Event $event)
+    {
+        $user = $event->participants()->where('users.id', Auth::id())->first();
+
+        if ($user) {
+            $user->events_participants()->detach($event->id);
+            $participant = 'detach';
+        } else {
+            $event->users()->attach(Auth::id(), ['role' => 'participant']);
+            $participant = 'attach';
+        }
+
+        return response()->json([
+            'error' => null,
+            'participant' => $participant,
+            'participants_count' => $event->participants()->count(),
+        ]);
     }
 }

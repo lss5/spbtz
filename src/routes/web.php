@@ -19,7 +19,9 @@ Route::get('/', function () {
 
 Route::prefix('admin')->name('admin.')->middleware('auth')->group(function(){
     Route::get('/', [\App\Http\Controllers\Admin\IndexController::class, 'index'])->name('index');
+    Route::get('/user', [\App\Http\Controllers\Admin\UserController::class, 'show'])->name('user.show');
     Route::resource('events', \App\Http\Controllers\Admin\EventController::class);
+    Route::post('/participant/{event}', [\App\Http\Controllers\Admin\EventController::class, 'participant'])->name('events.participant');
 });
 
 Route::get('/login', [\App\Http\Controllers\AuthenticateController::class, 'login'])->name('login');

@@ -33,7 +33,7 @@
                             <li class="nav-item">
                                 <a href="{{ route('admin.events.show', $event) }}" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
-                                    <p>{{ $event->title }}</p>
+                                    <p>{{ Str::limit($event->title, 45, '') }}</p>
                                 </a>
                             </li>
                         @endforeach
