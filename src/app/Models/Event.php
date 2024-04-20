@@ -27,7 +27,7 @@ class Event extends Model
 
     public function creator(): BelongsToMany
     {
-        return $this->belongsToMany(Event::class)->wherePivot('role', 'creator');
+        return $this->belongsToMany(User::class)->wherePivot('role', 'creator');
     }
 
     public function participants(): BelongsToMany
