@@ -14,6 +14,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::prefix('v1/admin')
+    ->namespace('App\Http\Controllers\Api\V1')
+    ->middleware('auth:sanctum')
+    ->group(function(){
+        Route::apiResource('events', Admin\EventController::class);
+        Route::post('events/participant/{event}', [App\Http\Controllers\Admin\EventController::class, 'participant'])->name('events.participant');
+});
+Route::prefix('v1/admin')->group(function(){
+    Route::post('/login', [App\Http\Controllers\Api\V1\AuthenticateController::class, 'authenticate']);
+    Route::post('/registration', [App\Http\Controllers\Api\V1\AuthenticateController::class, 'registration']);
 });

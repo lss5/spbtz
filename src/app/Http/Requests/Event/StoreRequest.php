@@ -11,7 +11,9 @@ class StoreRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        $user = $this->user();
+
+        return $user !== null;
     }
 
     public function rules(): array

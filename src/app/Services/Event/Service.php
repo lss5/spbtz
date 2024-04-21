@@ -23,4 +23,10 @@ class Service
         
         return $event;
     }
+
+    public function destroy(Event $event): void
+    {
+        $event->users()->detach();
+        $event->delete();
+    }
 }

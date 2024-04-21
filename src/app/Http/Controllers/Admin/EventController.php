@@ -77,11 +77,6 @@ class EventController extends Controller
         return redirect()->route('admin.events.show', $event);
     }
 
-    public function destroy(Event $event)
-    {
-        //
-    }
-
     /**
      * Change status user to event
      */
